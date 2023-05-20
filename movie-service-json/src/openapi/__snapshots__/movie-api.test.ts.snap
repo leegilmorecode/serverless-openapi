@@ -1,0 +1,540 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get-api-json should return the correct json 1`] = `
+{
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+          },
+        },
+        "required": [
+          "message",
+        ],
+        "type": "object",
+      },
+      "Movie": {
+        "properties": {
+          "id": {
+            "description": "The movie ID (numeric characters only)",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "type": "string",
+          },
+          "rating": {
+            "description": "The rating of the movie",
+            "enum": [
+              "U",
+              "PG",
+              "12",
+              "15",
+              "18",
+            ],
+            "pattern": "^[UPG]|1[258]$",
+            "type": "string",
+          },
+          "title": {
+            "description": "The movie title (alphanumeric characters and spaces only)",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ]*$",
+            "type": "string",
+          },
+          "year": {
+            "description": "The release year of the movie",
+            "pattern": "^\\d{4}$",
+            "type": "string",
+          },
+        },
+        "required": [
+          "id",
+          "title",
+          "year",
+          "rating",
+        ],
+        "type": "object",
+      },
+      "NewMovie": {
+        "properties": {
+          "rating": {
+            "description": "The rating of the movie",
+            "enum": [
+              "U",
+              "PG",
+              "12",
+              "15",
+              "18",
+            ],
+            "pattern": "^[UPG]|1[258]$",
+            "type": "string",
+          },
+          "title": {
+            "description": "The movie title (alphanumeric characters and spaces only)",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ]*$",
+            "type": "string",
+          },
+          "year": {
+            "description": "The release year of the movie",
+            "pattern": "^\\d{4}$",
+            "type": "string",
+          },
+        },
+        "required": [
+          "title",
+          "year",
+          "rating",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "info": {
+    "description": "An API for movies",
+    "title": "Movie API Example",
+    "version": "v1",
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/v1/movies": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Movie",
+                  },
+                  "type": "array",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Get all movies",
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::account-id:role/apiRole",
+          "httpMethod": "POST",
+          "passthroughBehavior": "when_no_match",
+          "responses": {
+            "default": {
+              "responseTemplates": {
+                "application/json": "",
+              },
+              "statusCode": "200",
+            },
+          },
+          "type": "aws_proxy",
+          "uri": {
+            "Fn::Sub": "arn:aws:apigateway:\${AWS::Region}:lambda:path/2015-03-31/functions/\${ListMoviesLambda.Arn}/invocations",
+          },
+        },
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewMovie",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Create a new movie",
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::account-id:role/apiRole",
+          "httpMethod": "POST",
+          "passthroughBehavior": "when_no_match",
+          "responses": {
+            "default": {
+              "responseTemplates": {
+                "application/json": "",
+              },
+              "statusCode": "200",
+            },
+          },
+          "type": "aws_proxy",
+          "uri": {
+            "Fn::Sub": "arn:aws:apigateway:\${AWS::Region}:lambda:path/2015-03-31/functions/\${CreateMovieLambda.Arn}/invocations",
+          },
+        },
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+    },
+    "/v1/movies/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "ID of the movie",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Get a movie by id",
+        "x-amazon-apigateway-integration": {
+          "credentials": "arn:aws:iam::account-id:role/apiRole",
+          "httpMethod": "POST",
+          "passthroughBehavior": "when_no_match",
+          "responses": {
+            "default": {
+              "responseTemplates": {
+                "application/json": "",
+              },
+              "statusCode": "200",
+            },
+          },
+          "type": "aws_proxy",
+          "uri": {
+            "Fn::Sub": "arn:aws:apigateway:\${AWS::Region}:lambda:path/2015-03-31/functions/\${GetMovieByIdLambda.Arn}/invocations",
+          },
+        },
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+    },
+  },
+  "x-amazon-apigateway-request-validators": {
+    "validation": {
+      "validateRequestBody": true,
+      "validateRequestParameters": true,
+    },
+  },
+}
+`;
+
+exports[`get-api-json should return the redacted version of the json 1`] = `
+{
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "properties": {
+          "message": {
+            "type": "string",
+          },
+        },
+        "required": [
+          "message",
+        ],
+        "type": "object",
+      },
+      "Movie": {
+        "properties": {
+          "id": {
+            "description": "The movie ID (numeric characters only)",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89aAbB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$",
+            "type": "string",
+          },
+          "rating": {
+            "description": "The rating of the movie",
+            "enum": [
+              "U",
+              "PG",
+              "12",
+              "15",
+              "18",
+            ],
+            "pattern": "^[UPG]|1[258]$",
+            "type": "string",
+          },
+          "title": {
+            "description": "The movie title (alphanumeric characters and spaces only)",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ]*$",
+            "type": "string",
+          },
+          "year": {
+            "description": "The release year of the movie",
+            "pattern": "^\\d{4}$",
+            "type": "string",
+          },
+        },
+        "required": [
+          "id",
+          "title",
+          "year",
+          "rating",
+        ],
+        "type": "object",
+      },
+      "NewMovie": {
+        "properties": {
+          "rating": {
+            "description": "The rating of the movie",
+            "enum": [
+              "U",
+              "PG",
+              "12",
+              "15",
+              "18",
+            ],
+            "pattern": "^[UPG]|1[258]$",
+            "type": "string",
+          },
+          "title": {
+            "description": "The movie title (alphanumeric characters and spaces only)",
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9 ]*$",
+            "type": "string",
+          },
+          "year": {
+            "description": "The release year of the movie",
+            "pattern": "^\\d{4}$",
+            "type": "string",
+          },
+        },
+        "required": [
+          "title",
+          "year",
+          "rating",
+        ],
+        "type": "object",
+      },
+    },
+  },
+  "info": {
+    "description": "An API for movies",
+    "title": "Movie API Example",
+    "version": "v1",
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/v1/movies": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Movie",
+                  },
+                  "type": "array",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Get all movies",
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewMovie",
+              },
+            },
+          },
+          "required": true,
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Create a new movie",
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+    },
+    "/v1/movies/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "description": "ID of the movie",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+            },
+          },
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Movie",
+                },
+              },
+            },
+            "description": "Successful response",
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Bad Request",
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse",
+                },
+              },
+            },
+            "description": "Not Found",
+          },
+        },
+        "summary": "Get a movie by id",
+        "x-amazon-apigateway-request-validator": "validation",
+      },
+    },
+  },
+  "x-amazon-apigateway-request-validators": {
+    "validation": {
+      "validateRequestBody": true,
+      "validateRequestParameters": true,
+    },
+  },
+}
+`;

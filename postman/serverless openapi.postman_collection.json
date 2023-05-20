@@ -1,0 +1,132 @@
+{
+  "info": {
+    "_postman_id": "73bfea72-31e6-4df8-8969-8d40113635f5",
+    "name": "serverless openapi",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "752706"
+  },
+  "item": [
+    {
+      "name": "Get Movies",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{movies-api-prod}}/api/v1/movies",
+          "protocol": "https",
+          "host": ["{{movies-api-prod}}"],
+          "path": ["api", "v1", "movies"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Movie by Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{movies-api-prod}}/api/v1/movies/cbbccaba-3ab9-4af0-a157-0e5cfd654e20",
+          "protocol": "https",
+          "host": ["{{movies-api-prod}}"],
+          "path": [
+            "api",
+            "v1",
+            "movies",
+            "cbbccaba-3ab9-4af0-a157-0e5cfd654e20"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post Movie",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lees movie\",\n    \"year\": \"2001\",\n    \"rating\": \"U\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{movies-api-prod}}/api/v1/movies",
+          "protocol": "https",
+          "host": ["{{movies-api-prod}}"],
+          "path": ["api", "v1", "movies"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Movies Mock",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{movies-api-mock}}/api/v1/movies",
+          "protocol": "https",
+          "host": ["{{movies-api-mock}}"],
+          "path": ["api", "v1", "movies"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Movie by Id Mock",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://{{movies-api-mock}}/api/v1/movies/cbbccaba-3ab9-4af0-a157-0e5cfd654e20",
+          "protocol": "https",
+          "host": ["{{movies-api-mock}}"],
+          "path": [
+            "api",
+            "v1",
+            "movies",
+            "cbbccaba-3ab9-4af0-a157-0e5cfd654e20"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Post Movie Mock",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"lees movie\",\n    \"year\": \"2001\",\n    \"rating\": \"U\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://{{movies-api-mock}}/api/v1/movies/",
+          "protocol": "https",
+          "host": ["{{movies-api-mock}}"],
+          "path": ["api", "v1", "movies", ""]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "movies-api-prod",
+      "value": "your-rest-api.execute-api.your-region.amazonaws.com"
+    },
+    {
+      "key": "movies-api-mock",
+      "value": "your-mock-rest-api.execute-api.your-region.amazonaws.com"
+    }
+  ]
+}
